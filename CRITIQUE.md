@@ -5,21 +5,25 @@ This is a simple structured pipeline project that aims to extract, transform and
 
 ---
 
-## Architectural Choice
-- I've made some research about the extraction methods available in the API documentation from the users-guides https://ec.europa.eu/eurostat/web/user-guides/data-browser/api-data-access/api-introduction and it had the option to use JSON-stat data which with some research found a python lib that deals with that with ease, so that one of the thoughts i had going in that direction. Also usually JSON is commonly parsed in a lot of languages.
+## Architectural Choices
+- I did some research about the extraction methods available in the API documentation from the user guides (https://ec.europa.eu/eurostat/web/user-guides/data-browser/api-data-access/api-introduction) and found the option to use JSON-stat data. With some research, I found a Python library that deals with that with ease, which led me in that direction. Also, JSON is commonly parsed in a lot of languages.
 
-Firstly I created a single file ETL script, but then I thought to sharpen it a bit and just make each step a new file so readability and future refactoring would be easier.
+Firstly I created a single-file ETL script, but then I thought to sharpen it a bit and make each step a new file so readability and future refactoring would be easier.
+
+I looked for libraries that would assist in the coding process of different steps as they were necessary:
+- **Alembic / SQLAlchemy:** For migrations, as other languages that I worked with utilize migrations. This project could simply use pure SQL in a .txt file, but to make it easier for other people using this project, I chose Alembic.
+- **pyjstat / Pandas:** To deal with JSON-stat data along with Pandas, which was used for processing the datasets.
+- **Psycopg2:** Used to manage the PostgreSQL connection and execute queries.
 
 ---
 
 ## AI Tools
-- Utilised AI tools to improve project environment creation such as fast installing of all the libraries used in this project.
-- Improved data understanding about indexation of multidimensional data
+- Used AI tools to accelerate local environment creation and boilerplate package installation.
+- Utilized AI to quickly parse and understand Eurostat's documentation about multi-dimensional data indexation.
 
 ---
 
 ## Architecture Modifications
-- Utilise Crons to run the pipelines from time to time if necessary. As datasets are often very big.
-- The same structure could be applied but with configurations for different URL's and different tables.
-
----
+- Utilize Cron jobs to run the pipelines from time to time if necessary, as datasets are often very big. I've heard about Prefect as an orchestrator for scaling; I would have to study more about it first, but I would probably go for that idea.
+- The same structure could be applied but with configurations for different URLs, different tables, params, etc.
+- I'd create tables for dimension references so that it occupies less storage. For example, mapping GEO -> IE to an ID takes less space than writing the full GEO string many times (Star Schema normalization).

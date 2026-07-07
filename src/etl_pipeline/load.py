@@ -5,8 +5,9 @@ from sqlalchemy.engine import Engine
 
 logger = logging.getLogger(__name__)
 
+
 def load_data(df, db_engine: Engine) -> None:
-    logger.info(f"Upserting {len(df)} rows into PostgreSQL")
+    logger.info("Upserting %s rows into PostgreSQL", len(df))
 
     records = df.to_dict(orient="records")
 
@@ -22,12 +23,28 @@ def load_data(df, db_engine: Engine) -> None:
     )
 
     chunk_size = 5000
-    for i in range(0, len(records), chunk_size):
-      chunk = records[i : i + chunk_size]
+    total_records = len(records)
+    total_chunks = (total_records + chunk_size - 1) // chunk_size
 
-      with db_engine.begin() as conn:
-        conn.execute(upsert_query, chunk)
+    logger.info(
+        "Starting load of %s records in %s chunks (chunk size: %s)",
+        total_records,
+        total_chunks,
+        chunk_size,
+    )
 
-        conn.commit()
+    for i in range(0, total_records, chunk_size):
+        chunk = records[i:i + chunk_size]
+        chunk_number = (i // chunk_size) + 1
 
-    logger.info("Pipeline load completed successfully")
+        with db_engine.begin() as conn:
+            conn.execute(upsert_query, chunk)
+
+        logger.info(
+            "Processed chunk %s/%s (%s records)",
+            chunk_number,
+            total_chunks,
+            len(chunk),
+        )
+
+    logger.info("Completed loading %s records", total_records)

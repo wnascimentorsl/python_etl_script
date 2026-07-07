@@ -17,15 +17,22 @@ logger = logging.getLogger(__name__)
 
 load_dotenv(Path(__file__).resolve().parent / ".env")
 
-EUROSTAT_URL = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr?format=JSON&time=2021&geo=MT"
+EUROSTAT_URL = "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/nasa_10_nf_tr"
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 def main() -> None:
     if not DATABASE_URL:
-        logging.warning("DATABASE_URL environment variable is not set")
+        logging.warning("DATABASE_URL is not set. Exiting pipeline.")
+        return
+
+    params = {
+        "format": "JSON",
+        "time": ["2021", "2022", "2023"],
+        "geo": "IE",
+    }
 
     engine = create_engine(DATABASE_URL)
-    raw_data = extract_data(EUROSTAT_URL)
+    raw_data = extract_data(EUROSTAT_URL, params)
     transformed_data = transform_data(raw_data)
     load_data(transformed_data, engine)
 
