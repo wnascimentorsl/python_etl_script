@@ -12,14 +12,14 @@ def transform_data(transformed: pd.DataFrame) -> pd.DataFrame:
     logger.info("Cleaning dimensions and generating operational IDs")
 
     df["time"] = df["time"].astype(str).str.strip().astype(int)
-    df["value"] = pd.to_numeric(df["value"], errors="coerce")
+    df["value"] = pd.to_numeric(df["value"], errors="coerce").astype("Float64")
 
     missing_values = df["value"].isna().sum()
     if missing_values > 0:
-        logger.warning(f"Coerced {missing_values} invalid value strings into NaN.")
+        logger.warning(f"Coerced {missing_values} invalid value strings into null")
 
     if "flag" not in df.columns:
-        df["flag"] = ""
+        df["flag"] = pd.NA
 
     def generate_uid(row: pd.Series) -> str:
         unique_string = (
