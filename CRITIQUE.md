@@ -14,6 +14,7 @@ I looked for libraries that would assist in the coding process of different step
 - **Alembic / SQLAlchemy:** For migrations, as other languages that I worked with utilize migrations. This project could simply use pure SQL in a .txt file, but to make it easier for other people using this project, I chose Alembic.
 - **pyjstat / Pandas:** To deal with JSON-stat data along with Pandas, which was used for processing the datasets.
 - **Psycopg2:** Used to manage the PostgreSQL connection and execute queries.
+- **Pytest:** Used as a testing framework
 
 ---
 
@@ -28,4 +29,4 @@ I looked for libraries that would assist in the coding process of different step
 - The same structure could be applied but with configurations for different URLs, different tables, params, etc.
 - I'd create tables for dimension references so that it occupies less storage. For example, mapping GEO -> IE to an ID takes less space than writing the full GEO string many times (Star Schema normalization).
 - The Eurostat API can't handle big API requests, so there could an implementantion to fetch the request in smaller query chunks. Or the extract method could me refactored to use the full extracted TSV file option. For this development I chose some filters that could be handled by the API.
-- Implementation of broader unit testing
+- Implementation of broader testing in general
