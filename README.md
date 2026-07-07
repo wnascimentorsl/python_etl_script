@@ -18,6 +18,8 @@ so inserting and updating becomes easier.
 
 1. Create and activate a virtual environment.
 
+If using Python 3.14, please run the command below in PowerShell, as this version is currently experiencing issues with Bash in this project (as of 07/07/2026).
+
 ```bash
 python -m venv .venv
 source .venv/Scripts/activate   # Windows PowerShell
