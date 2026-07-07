@@ -13,8 +13,8 @@ def load_data(df, db_engine: Engine) -> None:
 
     upsert_query = text(
         """
-        INSERT INTO eurostat_nasa_nf_tr (id, freq, sector, na_item, geo, unit, time, value, flag)
-        VALUES (:id, :freq, :sector, :na_item, :geo, :unit, :time, :value, :flag)
+        INSERT INTO eurostat_nasa_nf_tr (id, freq, sector, na_item, geo, unit, direct, time, value, flag)
+        VALUES (:id, :freq, :sector, :na_item, :geo, :unit, :direct, :time, :value, :flag)
         ON CONFLICT (id) DO UPDATE SET
             value = EXCLUDED.value,
             flag = EXCLUDED.flag,
