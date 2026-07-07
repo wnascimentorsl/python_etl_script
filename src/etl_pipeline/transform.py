@@ -19,7 +19,6 @@ def transform_data(transformed: pd.DataFrame) -> pd.DataFrame:
         logger.warning(f"Coerced {missing_values} invalid value strings into NaN.")
 
     if "flag" not in df.columns:
-        logger.warning("No flag column found in raw data. Initializing empty column.")
         df["flag"] = ""
 
     def generate_uid(row: pd.Series) -> str:

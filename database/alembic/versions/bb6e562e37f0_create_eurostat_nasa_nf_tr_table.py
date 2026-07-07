@@ -41,5 +41,5 @@ def upgrade() -> None:
 
 def downgrade() -> None:
     op.drop_index('idx_eurostat_sector_item', table_name='eurostat_nasa_nf_tr')
-    op.drop_index('idx_eurostat_geo_year', table_name='eurostat_nasa_nf_tr')
+    op.drop_index('idx_eurostat_geo_time', table_name='eurostat_nasa_nf_tr')
     op.drop_table('eurostat_nasa_nf_tr')
