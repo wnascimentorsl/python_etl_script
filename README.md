@@ -33,6 +33,8 @@ pip install -r dependencies.txt
 
 3. Configure your database connection.
 
+- cp .env.example .env
+
 - Update `DATABASE_URL` in your .env file
 
 4. Run Alembic migrations.
