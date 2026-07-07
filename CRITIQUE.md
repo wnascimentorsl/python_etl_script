@@ -28,3 +28,4 @@ I looked for libraries that would assist in the coding process of different step
 - The same structure could be applied but with configurations for different URLs, different tables, params, etc.
 - I'd create tables for dimension references so that it occupies less storage. For example, mapping GEO -> IE to an ID takes less space than writing the full GEO string many times (Star Schema normalization).
 - The Eurostat API can't handle big API requests, so there could an implementantion to fetch the request in smaller query chunks. Or the extract method could me refactored to use the full extracted TSV file option. For this development I chose some filters that could be handled by the API.
+- Implementation of broader unit testing
