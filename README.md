@@ -13,7 +13,7 @@ so inserting and updating becomes easier.
 
 - Python 3.10+
 - PostgreSQL 14+
-- `pip install -r requirements.txt`
+- `pip install -r dependencies.txt`
 
 ## Setup
 
@@ -29,7 +29,7 @@ source .venv/bin/activate       # bash / Linux
 2. Install dependencies.
 
 ```bash
-pip install -r requirements.txt
+pip install -r dependencies.txt
 ```
 
 3. Configure your database connection.
@@ -52,4 +52,4 @@ python runner.py
 
 - The ETL orchestration is implemented in `runner.py`.
 - Extraction, transformation, and load logic are separated into `src/etl_pipeline`.
-- `requirements.txt` pins the exact package versions of the libs used in this environment.
+- `dependencies.txt` pins the exact package versions of the libs used in this environment.
