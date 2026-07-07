@@ -13,7 +13,6 @@ so inserting and updating becomes easier.
 
 - Python 3.10+
 - PostgreSQL 14+
-- `pip install -r dependencies.txt`
 
 ## Setup
 
@@ -34,7 +33,7 @@ pip install -r dependencies.txt
 
 3. Configure your database connection.
 
-- Update `DATABASE_URL` in your environment
+- Update `DATABASE_URL` in your .env file
 
 4. Run Alembic migrations.
 
