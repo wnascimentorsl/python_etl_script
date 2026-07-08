@@ -4,7 +4,7 @@
 
 This repository contains an ETL pipeline that:
 
-- extracts annual non-financial transaction data from the Eurostat `nasa_10_nf_tr` dataset, with specific filters.
+- extracts annual non-financial transaction data from the Eurostat `nasa_10_nf_tr` dataset, with specific filters (GEO = IE and TIME = 2021, 2022, 2023)
 - transforms JSON-stat data into a normalized long table,
 - loads the data into PostgreSQL using deterministic SHA-256 IDs, making inserts and updates idempotent.
 
