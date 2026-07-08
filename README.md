@@ -6,18 +6,17 @@ This repository contains an ETL pipeline that:
 
 - extracts annual non-financial transaction data from the Eurostat `nasa_10_nf_tr` dataset, with specific filters.
 - transforms JSON-stat data into a normalized long table,
-- Loads the data into PostgreSQL using deterministic SHA-256 IDs, making inserts and updates idempotent.
+- loads the data into PostgreSQL using deterministic SHA-256 IDs, making inserts and updates idempotent.
 
 ## Requirements
 
 - Python 3.10+
 - Docker Desktop (recommended)
-- PostgreSQL 14+ (if not using docker)
-- Optional: PostgreSQL client for local inspection
+- Optional: PostgreSQL client for local inspection (or if not using Docker)
 
 ## Setup
 
-### Option 1: Simple Docker setup (recommended for quickest setup)
+### Option 1: Docker setup (recommended for quickest setup)
 
 1. Build and start the services.
 
@@ -67,6 +66,9 @@ Install PostgreSQL locally (see the official PostgreSQL download page), then cre
 
 ```sql
 CREATE DATABASE nasa_etl;
+```
+
+Copy the example environment file:
 
 ```bash
 cp .env.example .env
@@ -94,7 +96,7 @@ python runner.py
 
 ## Verifying the data
 
-Once loaded, the data lives in the `eurostat_nasa_nf_tr` table. To inspect it, you can use psql locally or connect to the running database container.
+Once loaded, the data is stored in the `eurostat_nasa_nf_tr` table. To inspect it, you can use psql locally or connect to the running database container.
 
 ```sql
 \dt
@@ -106,4 +108,4 @@ SELECT * FROM eurostat_nasa_nf_tr LIMIT 10;
 
 - The ETL orchestration is implemented in `runner.py`.
 - Extraction, transformation, and load logic are separated into `src/etl_pipeline`.
-- `dependencies.txt` pins the exact package versions of the libs used in this environment.
+- `dependencies.txt` pins the exact versions of the project's Python dependencies.
