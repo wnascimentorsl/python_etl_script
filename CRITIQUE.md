@@ -31,3 +31,4 @@ I looked for libraries that would assist in the coding process of different step
 - I'd create tables for dimension references so that it occupies less storage. For example, mapping GEO -> IE to an ID takes less space than writing the full GEO string many times (Star Schema normalization).
 - The Eurostat API can't handle big API requests, so there could an implementation to fetch the request in smaller query chunks. Or the extract method could be refactored to use the full extracted TSV file option. For this development I chose some filters that could be handled by the API.
 - Increase unit test coverage. Add end-to-end tests validating the complete ETL workflow.
+- Refactor the modules even more then just ETL files, to isolate responsibilities and improve scalability. For example, we could decouple the raw SQL execution from the Load class into its own database layer.

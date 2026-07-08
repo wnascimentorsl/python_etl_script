@@ -94,6 +94,12 @@ alembic upgrade head
 python runner.py
 ```
 
+6. Running tests
+
+```bash
+python -m pytest
+```
+
 ## Verifying the data
 
 Once loaded, the data is stored in the `eurostat_nasa_nf_tr` table. To inspect it, you can use psql locally or connect to the running database container.

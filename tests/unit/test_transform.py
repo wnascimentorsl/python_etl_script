@@ -1,6 +1,7 @@
 import hashlib
 
 import pandas as pd
+import pytest
 
 from src.etl_pipeline.transform import transform_data
 
@@ -81,3 +82,49 @@ def test_transform_data_generates_a_deterministic_id_and_preserves_columns():
         "value",
         "flag",
     ]
+
+
+def test_transform_data_fails_with_missing_required_column():
+    input_df = pd.DataFrame(
+        {
+            "freq": ["A"],
+            "sector": ["B"],
+            "na_item": ["C"],
+            "geo": ["D"],
+            # Missing 'unit' column
+            "direct": ["F"],
+            "time": ["2020"],
+            "value": ["10.5"],
+            "flag": ["p"],
+        }
+    )
+
+    with pytest.raises(ValueError):
+        transform_data(input_df)
+
+
+def test_transform_data_fails_with_empty_dataframe():
+    """Test that transform fails or handles empty dataframe."""
+    input_df = pd.DataFrame()
+
+    with pytest.raises((KeyError, ValueError)):
+        transform_data(input_df)
+
+
+def test_transform_data_fails_with_all_nan_values():
+    input_df = pd.DataFrame(
+        {
+            "freq": ["A"],
+            "sector": ["B"],
+            "na_item": ["C"],
+            "geo": ["D"],
+            "unit": ["E"],
+            "direct": ["F"],
+            "time": [None],
+            "value": [None],
+            "flag": [None],
+        }
+    )
+
+    with pytest.raises(ValueError, match="Null values found in required fields"):
+            transform_data(input_df)
