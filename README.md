@@ -65,7 +65,7 @@ pip install -r dependencies.txt
 Install PostgreSQL locally (see the official PostgreSQL download page), then create a database:
 
 ```sql
-CREATE DATABASE nasa_etl;
+CREATE DATABASE yourdbname;
 ```
 
 Copy the example environment file:
@@ -88,16 +88,16 @@ Then update `DATABASE_URL` in your `.env` file.
 alembic upgrade head
 ```
 
-5. Run the pipeline.
-
-```bash
-python runner.py
-```
-
-6. Running tests
+5. Running tests
 
 ```bash
 python -m pytest
+```
+
+6. Run the pipeline.
+
+```bash
+python runner.py
 ```
 
 ## Verifying the data
